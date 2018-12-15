@@ -1,5 +1,7 @@
 ## Welcome to the Adinkra Repository
 
+Download [Adinkra.m](https://raw.githubusercontent.com/kstiffle/hello-world/master/Adinkra.m) by right (command) clicking and saving [this link](https://raw.githubusercontent.com/kstiffle/hello-world/master/Adinkra.m) and download [AdinkraTutorial.nb](https://raw.githubusercontent.com/kstiffle/hello-world/master/AdinkraTutorial.nb) by right (command) clicking and saving [this link](https://raw.githubusercontent.com/kstiffle/hello-world/master/AdinkraTutorial.nb)
+
 The Adinkra.m package includes tools to
 
 ```markdown

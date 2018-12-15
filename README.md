@@ -1,4 +1,43 @@
-## Welcome to GitHub Pages
+## Welcome to the Adinkra Repository
+
+The Adinkra.m package includes tools to
+
+```markdown
+
+1. Build 4D, N=1 SUSY transfromation laws in Majorana components
+2. Reduce to 1D (0-brane reduction), generating L- and R-matrices for arbitrary d
+3. Graph L- and R- adinkra matrices as an adinkra for GR(4,4) matrices
+4. Allows the user to encode their own arbitrary GR(d,N) L- and R- adinkra matrices and check that the GR(d,N) algebra is satisfied
+4. Calculate chi_0 and holoraumy of adinkra matrices for arbitrary GR(d,N)
+5. Print out L, R, holoraumy matrices and closure relationship in an l(d/4) \times l(4) tensor product basis in symbolic form ready to be LaTexed by Mathematica's TeXForm command
+
+```
+
+Intallation step
+
+```markdown
+
+Mathematica with "File->Install->Package".
+
+```
+
+The date of the latest build can be called by running
+
+BuildDate[Adinkra]
+
+the latest build date is 
+
+181215
+
+which means 2018, December 15
+
+List of functions can be found by running
+
+FunctionList[Adinkra] 
+
+which outputs the following
+
+...
 
 You can use the [editor on GitHub](https://github.com/kstiffle/hello-world/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 

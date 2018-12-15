@@ -1,6 +1,6 @@
 ## Welcome to the Adinkra Repository
 
-Download [Adinkra.m](https://github.com/kstiffle/hello-world/edit/master/Adinkra.m) by clicking [here](https://github.com/kstiffle/hello-world/edit/master/Adinkra.m) 
+Download [Adinkra.m](https://raw.githubusercontent.com/kstiffle/hello-world/master/Adinkra.m) [here](https://raw.githubusercontent.com/kstiffle/hello-world/master/Adinkra.m) [and AdinkraTutorial.nb](https://raw.githubusercontent.com/kstiffle/hello-world/master/Adinkra.m) [here](https://raw.githubusercontent.com/kstiffle/hello-world/master/Adinkra.ma)
 
 The Adinkra.m package includes tools to
 

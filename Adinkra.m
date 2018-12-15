@@ -2638,6 +2638,10 @@ ConstructVtildePMBasis[pm_][Rep_][Ii_, Ji_] := If[VtildePMCString[Rep] != "",
         \[Rho][Mod[mu, 4], Mod[nu, 4]], {ai, 1, Num\[Omega]f[Rep]}, 
       {mu, 1, 4}, {nu, 1, 4}], VtildePMCMessage[Rep]]
  
+coordinates = {t, x, y, z}
+ 
+DOWN = 2
+ 
 ell[Rep_][TildeIndex_, ahat_][Ii_, Ji_] := 
     (-I)*(Tr[su2matrix[TildeIndex, ahat] . Vtilde[Rep][[Ii,Ji]]]/
       (4*VtildeScaleFactor))
@@ -2722,8 +2726,15 @@ FlipComplement[123] = 4
  
 FlopString[mu_] := If[mu == 0, "", StringJoin["(", ToString[mu], ")"]]
  
-FunctionList[Adinkra] = StringJoin["SpaceTime:\n", FunctionList[SpaceTime], "\
-\n\nGenerateLandR:\nNColors[D,Phi,Psi], LTable[DColor,Phi,Psi], \
+FunctionList[Adinkra] = "SpaceTime:\nIndexRange[SpaceTime][Index], Index = \
+mu, a, or RaiseCode\n\ncoordinates, \[CapitalStigma][mu], \[Eta][mu,nu], \
+Cmetric[[a,b]], InverseCmetric[[a,b]], UD[Field,\[CapitalStigma][mu]] , \
+Lap[Field], UP, DOWN, \
+RaiseSTIndex[Field,RaiseCode1,RaiseCode2,...,RaiseCoden], \
+RaiseFermionIndex[Field]\n\n*************************************************\
+***************************************\n************************************\
+****************************************************\n\nGenerateLandR:\nNColo\
+rs[D,Phi,Psi], LTable[DColor,Phi,Psi], \
 RTable[DColor,Phi,Psi],GenerateLandR[DColor,Phi,Psi,Rep]\n\n*****************\
 ***********************************************************************\n****\
 *****************************************************************************\
@@ -2809,7 +2820,7 @@ padLmatrix[L], adjacencyToEdge[mat,col], buildrules[list], Valise, \
 GraphAdinkra[L], GraphAdinkra[L,BuildRules[list], \
 ExportAdinkra[L,BuildRules[list],filename]\n\n*******************************\
 *********************************************************\n******************\
-**********************************************************************"]
+**********************************************************************"
  
 FunctionList[AdinkraEssentials] = "IndexRange[AdinkraEssentials][Index], \
 Index = p1, II, ReportLevel, or pm\n\n***IMPORTANT****: Default Settings are \
@@ -2905,6 +2916,15 @@ GraphAdinkra[L,BuildRules[list], \
 ExportAdinkra[L,BuildRules[list],filename]\n\n*******************************\
 *********************************************************\n******************\
 **********************************************************************"
+ 
+FunctionList[SpaceTime] = "IndexRange[SpaceTime][Index], Index = mu, a, or \
+RaiseCode\n\ncoordinates, \[CapitalStigma][mu], \[Eta][mu,nu], \
+Cmetric[[a,b]], InverseCmetric[[a,b]], UD[Field,\[CapitalStigma][mu]] , \
+Lap[Field], UP, DOWN, \
+RaiseSTIndex[Field,RaiseCode1,RaiseCode2,...,RaiseCoden], \
+RaiseFermionIndex[Field]\n\n*************************************************\
+***************************************\n************************************\
+****************************************************"
  
 GenerateLandR[DColor_, Phi_, Psi_, Rep_] := 
     {L[Rep] = LTable[DColor, Phi, Psi]; R[Rep] = RTable[DColor, Phi, Psi]; 
@@ -3163,7 +3183,16 @@ IndexRange[BC4Tools][\[Mu]] =
 IndexRange[GraphingTools][list] = "{{7,8},{1,2,3,4},{5,6}} for a 242 adinkra, \
 {{8},{1,2,3,4},{5,6,7}} for a 341 adinkra, etc."
  
+IndexRange[SpaceTime][a] = "1,2,3,4"
+ 
+IndexRange[SpaceTime][mu] = "0,1,2,3"
+ 
+IndexRange[SpaceTime][RaiseCode] = "UP=1, DOWN=2"
+ 
 InverseCmetric = {{0, -1, 0, 0}, {1, 0, 0, 0}, {0, 0, 0, 1}, {0, 0, -1, 0}}
+ 
+Lap[Field_] := -D[Field, t, t] + D[Field, x, x] + D[Field, y, y] + 
+     D[Field, z, z]
  
 Attributes[layerlengths$] = {Temporary}
  
@@ -3379,6 +3408,51 @@ QuaternionTestKJI[Quat_] := Quat[[1]] . Quat[[1]] ==
       -Quat[[4]] . Quat[[4]] == IdentityMatrix[Length[Quat[[1]]]] && 
      Quat[[4]] . Quat[[3]] == Quat[[2]]
  
+RaiseFermionIndex[Field_] := If[Depth[Field[[0,0]]] == 1, 
+     Sum[InverseCmetric[[Field[[0,1]],bi]]*Field[[0,0]][bi][t, x, y, z], 
+      {bi, 1, 4}], Sum[InverseCmetric[[Field[[0,1]],bi]]*
+       Field[[0,0]][bi][t, x, y, z], {bi, 1, 4}]]
+ 
+RaiseSTIndex[Field_] := If[Depth[Field[[0,0]]] == 1, 
+     SignCoordinate[Field[[0,1]]]*Field, SignCoordinate[Field[[0,0,1]]]*Field]
+ 
+RaiseSTIndex[Field_, RaiseCode1_, RaiseCode2_] := 
+    If[Depth[Field[[0,0]]] == 1, SignCoordinate[Field[[0,1]]]^RaiseCode1*
+      SignCoordinate[Field[[0,2]]]^RaiseCode2*Field, 
+     SignCoordinate[Field[[0,0,1]]]^RaiseCode1*SignCoordinate[Field[[0,0,2]]]^
+       RaiseCode2*Field]
+ 
+RaiseSTIndex[Field_, RaiseCode1_, RaiseCode2_, RaiseCode3_] := 
+    If[Depth[Field[[0,0]]] == 1, SignCoordinate[Field[[0,1]]]^RaiseCode1*
+      SignCoordinate[Field[[0,2]]]^RaiseCode2*SignCoordinate[Field[[0,3]]]^
+       RaiseCode3*Field, SignCoordinate[Field[[0,0,1]]]^RaiseCode1*
+      SignCoordinate[Field[[0,0,2]]]^RaiseCode2*
+      SignCoordinate[Field[[0,0,3]]]^RaiseCode3*Field]
+ 
+RaiseSTIndex[Field_, RaiseCode1_, RaiseCode2_, RaiseCode3_, RaiseCode4_] := 
+    If[Depth[Field[[0,0]]] == 1, SignCoordinate[Field[[0,1]]]^RaiseCode1*
+      SignCoordinate[Field[[0,2]]]^RaiseCode2*SignCoordinate[Field[[0,3]]]^
+       RaiseCode3*SignCoordinate[Field[[0,4]]]^RaiseCode4*Field, 
+     SignCoordinate[Field[[0,0,1]]]^RaiseCode1*SignCoordinate[Field[[0,0,2]]]^
+       RaiseCode2*SignCoordinate[Field[[0,0,3]]]^RaiseCode3*
+      SignCoordinate[Field[[0,0,4]]]^RaiseCode4*Field]
+ 
+SignCoordinate[0] := -1
+ 
+SignCoordinate[1] := 1
+ 
+SignCoordinate[2] := 1
+ 
+SignCoordinate[3] := 1
+ 
+SignCoordinate[t] := -1
+ 
+SignCoordinate[x] := 1
+ 
+SignCoordinate[y] := 1
+ 
+SignCoordinate[z] := 1
+ 
 Attributes[rules$] = {Temporary}
  
 S3 = {{{1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}}, 
@@ -3427,6 +3501,10 @@ SigmaProductMF[mu_, nu_, ap_, bt_, ro_, sg_, dl_, gm_] :=
  
 ToSubscriptsRho = {\[Omega][sl_][ai_] -> Subscript[\[Omega], ai]^sl, 
      \[Rho][mu_, nu_] -> Subscript[\[Rho], mu, nu]}
+ 
+UD[Field_, var_] := SignCoordinate[var]*D[Field, var]
+ 
+UP = 1
  
 Vanishes[Object_] := If[Object == 0*Object, True, False]
  
@@ -6325,3 +6403,11 @@ VList = {V, Vtilde}
  
 \[Sigma]stdownstupdown[3, 3] = \[Sigma]stdownstup[3, 3] . 
      {{0, -1, 0, 0}, {1, 0, 0, 0}, {0, 0, 0, 1}, {0, 0, -1, 0}}
+ 
+\[CapitalStigma][0] := t
+ 
+\[CapitalStigma][1] := x
+ 
+\[CapitalStigma][2] := y
+ 
+\[CapitalStigma][3] := z
